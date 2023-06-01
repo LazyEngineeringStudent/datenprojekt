@@ -17,6 +17,6 @@
             </items>
         </MFXComboBox>
 
-        <MFXButton text="Calculate" fx:id="calculateButton"/>
+        <MFXButton text="Calculate" fx:id="calculateButton" onAction="#btnClicked"/>
     </VBox>
 </HBox>

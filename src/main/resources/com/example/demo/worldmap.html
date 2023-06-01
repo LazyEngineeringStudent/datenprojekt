@@ -1,0 +1,86 @@
+<!-- https://developers.google.com/chart/interactive/docs/gallery/geochart -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+      });
+      google.charts.setOnLoadCallback(initialDraw);
+
+      var data = [];
+      var region = 'world';
+
+      function initialDraw() {
+        setData('Country; Popularity', 'Popularity');
+        drawChart();
+      }
+
+      function drawChart(){
+
+        
+        var dataGoogleCharts = google.visualization.arrayToDataTable(data);
+
+        var options = {
+          // sizeAxis: { minValue: 0, maxValue: 100 } <- das funktioniert irgendwie nicht so
+          // colorAxis: {colors: ['green', '#4374e0']}
+          //backgroundColor: '#81d4fa', // Wasserfarbe
+          //height: 200, // X /Y Verhältnis bleibt richtig
+          //datalessRegionColor: '#f8bbd0', // Nicht gesetzte Regionen Farbe
+          //region: 'BR', // Hier nur die Länderkürzel verwenden Brazil geht nicht BR schon
+          region: region,
+          enableRegionInteractivity: true,
+          //tooltip: {textStyle: {color: '#FF0000'}, showColorCode: true},
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        function myClickHandler(){
+          var selection = chart.getSelection();
+          var message = '';
+
+          for (var i = 0; i < selection.length; i++) {
+            var item = selection[i];
+            if (item.row != null) {
+                message += item.row;
+            }
+          }
+
+          if (message == '') {
+            message = 'nothing';
+          } else {
+            message = data[parseInt(message) + 1][0];
+          }
+
+          alert('You selected ' + message);
+        }
+
+        function myReadyHandler(){
+          google.visualization.events.addListener(chart, 'select', myClickHandler);
+        }
+
+        google.visualization.events.addListener(chart, 'ready', myReadyHandler);
+
+        chart.draw(dataGoogleCharts, options);
+      }
+
+      function setData(data1, type){
+        var countryData = data1.split(',');
+        var data2 = [['Country', type]];
+
+        for (var i = 1; i < countryData.length; i++) {
+          var item = countryData[i].split(';');
+          var tmp = [item[0], parseInt(item[1])]
+          data2.push(tmp);
+        }
+        data = data2;
+      }
+    </script>
+</head>
+<body>
+<div id="regions_div" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
