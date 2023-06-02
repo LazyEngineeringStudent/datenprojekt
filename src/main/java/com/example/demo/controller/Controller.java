@@ -1,44 +1,57 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.csv.CSVLoader;
-import com.example.demo.model.csv.CSVParser;
 import com.example.demo.model.entities.Country;
 import com.example.demo.model.entities.CountryDataset;
 import com.example.demo.util.DataAttributes;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controller {
+public class Controller{
     @FXML
-    public MFXComboBox optionsComboBox;
+    public MFXComboBox yearComboBox;
     @FXML
-    public FXCollections comboBoxCollection;
-    @FXML
-    public MFXButton calculateButton;
+    public MFXComboBox attributeComboBox;
 
     private static List<Country> countryDatasetList;
 
-    public void comboOptionClicked(ActionEvent actionEvent) {
-        System.out.println(optionsComboBox.getValue());
+    public void yearComboClicked(ActionEvent actionEvent){
+        switch (Integer.parseInt(String.valueOf(yearComboBox.getValue()))) {
+            case 2015 -> year = 2015;
+            case 2016 -> year = 2016;
+            case 2017 -> year = 2017;
+            case 2018 -> year = 2018;
+            case 2019 -> year = 2019;
+        }
+        showAttribute();
     }
 
-
-    public void btnClicked(){
-        showAttribute(2018, DataAttributes.Economy);
+    public void attributeComboClicked(ActionEvent actionEvent){
+        String s = String.valueOf(attributeComboBox.getValue());
+        if(s.equals("HappinessRank")){
+            dataAttribute = DataAttributes.HappinessRank;
+        }else if(s.equals("HappinessScore")){
+            dataAttribute = DataAttributes.HappinessScore;
+        }else if(s.equals("Economy")){
+            dataAttribute = DataAttributes.Economy;
+        }else if(s.equals("LifeExpectancy")){
+            dataAttribute = DataAttributes.LifeExpectancy;
+        }else if(s.equals("Freedom")){
+            dataAttribute = DataAttributes.Freedom;
+        }else if(s.equals("GovernmentCorruption")){
+            dataAttribute = DataAttributes.GovernmentCorruption;
+        }else if(s.equals("Generosity")){
+            dataAttribute = DataAttributes.Generosity;
+        }
+        showAttribute();
     }
 
-    //TODO COMBOBOX Für Jahr
+    static DataAttributes dataAttribute = DataAttributes.HappinessRank;
+    static int year = 2018;
 
-    // TODO COMBOBOX Für Attribut
-
-    private void showAttribute(int year, DataAttributes dataAttribute){
+    private void showAttribute(){
         List<List<String>> data = new ArrayList<>();
         for (Country country: countryDatasetList) {
             List<String> countryEntry = new ArrayList<>();
@@ -48,25 +61,31 @@ public class Controller {
                 if(countryYearDataset.getDateOfCollection() == year){
                     switch (dataAttribute){
                         case HappinessRank:
+                            WebViewController.changeColorAxis("purple", "#ffffff");
                             countryEntry.add(String.valueOf(countryYearDataset.getHappinessRank()));
                             break;
                         case HappinessScore:
-                            countryEntry.add(String.valueOf(countryYearDataset.getHappinessScore()));
+                            WebViewController.changeColorAxis("#ffffff", "green");
+                            countryEntry.add(String.valueOf(countryYearDataset.getHappinessScore() * 100.0));
                             break;
                         case Economy:
+                            WebViewController.changeColorAxis("#ffffff", "green");
                             countryEntry.add(String.valueOf(countryYearDataset.getEconomy() * 100.0));
                             break;
                         case LifeExpectancy:
+                            WebViewController.changeColorAxis("#ffffff", "green");
                             countryEntry.add(String.valueOf(countryYearDataset.getLifeExpectancy()* 100.0));
                             break;
                         case Freedom:
+                            WebViewController.changeColorAxis("#ffffff", "green");
                             countryEntry.add(String.valueOf(countryYearDataset.getFreedom()* 100.0));
-                            System.out.println("added" + country.getName() + countryYearDataset.getFreedom());
                             break;
                         case GovernmentCorruption:
+                            WebViewController.changeColorAxis("#ffffff", "green");
                             countryEntry.add(String.valueOf(countryYearDataset.getGovernmentCorruption() * 100.0));
                             break;
                         case Generosity:
+                            WebViewController.changeColorAxis("#ffffff", "green");
                             countryEntry.add(String.valueOf(countryYearDataset.getGenerosity() * 100.0));
                     }
                     break yearloop;

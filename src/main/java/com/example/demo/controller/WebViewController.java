@@ -21,6 +21,11 @@ public class WebViewController {
         webEngine.executeScript("setData('" + convertDoubleStringArray(data) + "', '" + dataAttribute + "')");
         webEngine.executeScript("drawChart()");
     }
+
+    public static void changeColorAxis(String color1, String color2){
+        webEngine.executeScript("changeColorAxis('" + color1 + "', '" + color2 + "')");
+    }
+
     public WebViewController(WebEngine webEngine1){
         webEngine = webEngine1;
 

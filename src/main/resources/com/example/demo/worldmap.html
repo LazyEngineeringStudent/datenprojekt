@@ -13,10 +13,17 @@
 
       var data = [];
       var region = 'world';
+      var minColor = 'white';
+      var maxColor = 'green';
 
       function initialDraw() {
         setData('Country; Popularity', 'Popularity');
         drawChart();
+      }
+
+      function changeColorAxis(color1, color2){
+          minColor = color1;
+          maxColor = color2;
       }
 
       function drawChart(){
@@ -26,11 +33,11 @@
 
         var options = {
           // sizeAxis: { minValue: 0, maxValue: 100 } <- das funktioniert irgendwie nicht so
-          // colorAxis: {colors: ['green', '#4374e0']}
           //backgroundColor: '#81d4fa', // Wasserfarbe
           //height: 200, // X /Y Verhältnis bleibt richtig
           //datalessRegionColor: '#f8bbd0', // Nicht gesetzte Regionen Farbe
           //region: 'BR', // Hier nur die Länderkürzel verwenden Brazil geht nicht BR schon
+          colorAxis: {colors: [minColor, maxColor]},
           region: region,
           enableRegionInteractivity: true,
           //tooltip: {textStyle: {color: '#FF0000'}, showColorCode: true},

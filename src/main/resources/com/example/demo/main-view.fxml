@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.layout.HBox?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <HBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.demo.controller.Controller">
-    <VBox alignment="CENTER" spacing="20.0">
-        <MFXComboBox alignment="CENTER" promptText="Options" fx:id="optionsComboBox" onAction="#comboOptionClicked">
+    <HBox alignment="CENTER" spacing="20.0">
+        <MFXComboBox alignment="CENTER" promptText="Date" fx:id="yearComboBox" onAction="#yearComboClicked">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value = "Bar Charts"/>
-                    <String fx:value= "Pie CHarts" />
+                    <String fx:value = "2015"/>
+                    <String fx:value = "2016"/>
+                    <String fx:value = "2017"/>
+                    <String fx:value = "2018"/>
+                    <String fx:value = "2019"/>
                 </FXCollections>
             </items>
         </MFXComboBox>
 
-        <MFXButton text="Calculate" fx:id="calculateButton" onAction="#btnClicked"/>
-    </VBox>
+        <MFXComboBox alignment="CENTER" promptText="Attributes" fx:id="attributeComboBox" onAction="#attributeComboClicked">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value = "HappinessRank"/>
+                <String fx:value = "HappinessScore"/>
+                <String fx:value = "Economy"/>
+                <String fx:value = "LifeExpectancy"/>
+                <String fx:value = "Freedom"/>
+                <String fx:value = "GovernmentCorruption"/>
+                <String fx:value = "Generosity"/>
+            </FXCollections>
+        </items>
+    </MFXComboBox>
+    </HBox>
 </HBox>
