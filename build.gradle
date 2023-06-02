@@ -25,7 +25,13 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.example.demo'
-    mainClass = 'com.example.demo.HelloApplication'
+    mainClass = 'com.example.demo.MainApplication'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.example.demo.MainApplication'
+    }
 }
 
 javafx {
